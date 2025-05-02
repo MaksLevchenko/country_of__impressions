@@ -1,0 +1,265 @@
+{% extends 'travel_in_Russia/base.html' %}
+{% load static %}
+{% block title %}{{ city.name }}{% endblock %}
+{% block header %} bg1 {% endblock header %}
+{% block cities %}
+    <div class="city-detail">
+        <h3 class="name">
+            {{ city.name }}
+        </h3>
+        <div class="row">
+            <div class="desc1-left col-md-6">
+                <img src="{{ city.image.url }}" class="img-fluid" alt="">
+            </div>
+            <div class="desc1-right col-md-6 pl-lg-4">
+                <h5 class="editContent"></h5>
+                <ul>
+                    <li style="list-style: none">
+                        <span><b>Год основания: </b>{{ city.founding_date }}</span>
+                    </li>
+                    <li style="list-style: none">
+                        <span><b>Основатель: </b>{{ city.founder }}</span>
+                    </li>
+                    <li style="list-style: none">
+                        <span><b>Основные достопримечательности: </b><br>
+                            {% for sight in city.sight_set.all %}
+                                <a href="#{{ sight.name }}" class="link3">{{ sight.name }}</a><br>
+                            {% endfor %}
+                        </span>
+                    </li>
+                    <li style="list-style: none">
+                        <span><b>Где поесть: </b><br>
+                            {% for restaurant in city.restaurants_set.all %}
+                                <a href="#{{ restaurant.name }}" class="link3">{{ restaurant.name }}</a><br>
+                            {% endfor %}
+                        </span>
+                    </li>
+                    <li style="list-style: none">
+                        <form action="{% url 'add-rating' %}" method="post" id="city" name="rating">
+                            <b>Рейтинг:</b>
+                            {% csrf_token %}
+                            <input type="hidden" value="{{ city.id }}" name="city">
+                            <span class="rating">
+                                {% for k, v in star_form.fields.star.choices %}
+                                    <input id="rating{{ v }}" type="radio" name="star"
+                                           value="{{ k }}" {% if rating_user == v %}checked{% endif %}>
+                                    <label for="rating{{ v }}">{{ k }}</label>
+                                {% endfor %}
+                            </span>
+                            <span class="editContent">{{ middle_star }}</span>
+                        </form>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="city-description row sub-para-w3layouts">
+            <p class="description">
+                {{ city.description|safe }}
+            </p>
+        </div>
+        <h2>Достопримечательности: </h2>
+        <div>
+            {% for sight in city.sight_set.all %}
+                <h4 class="name" id="{{ sight.name }}">{{ sight.name }}</h4><br>
+                <div class="container">
+                    {% for photo in sight.photoattractions_set.all %}
+                        <img src="{{ photo.photo.url }}" width="280" alt=""><br><br>
+                        {% if user.is_staff %}
+                            <a href="{{photo.id}}/del_photo_sight" style="color: #1b1b1b">
+                                <button  class="mt-3 btn btn-success btn-block py-3"
+                                    style="background: #FF0000;" type="submit">
+                                    Удалить фото достопримечательности.
+                                </button>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                    {% if user.is_staff %}
+                        <a href="{{sight.id}}/add_photo_sight" style="color: #1b1b1b">
+                            <button  class="mt-3 btn btn-success btn-block py-3"
+                    style="background: #9FA8DA;" type="submit">
+                                Добавить фото достопримечательности.
+                            </button>
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="address"><b>Адрес: </b>{{ sight.place }}</div>
+                <div class="description">{{ sight.description }}<br><br>
+                    {% if user.is_staff %}
+                        <a href="{{sight.id}}/del_sight" style="color: #1b1b1b">
+                            <button  class="mt-3 btn btn-success btn-block py-3"
+                    style="background: #FF0000;" type="submit">
+                                Удалить достопримечательность
+                            </button>
+                        </a>
+                    {% endif %}
+                </div>
+        {% endfor %}
+            {% if user.is_staff %}
+                <a href="{{city.get_absolute_url}}/add_sight" style="color: #1b1b1b">
+                    <button  class="mt-3 btn btn-success btn-block py-3"
+                    style="background: #9FA8DA;" type="submit"> Добавить достопримечательность</button>
+                </a>
+            {% endif %}
+        </div>
+        <h2>Рестораны: </h2>
+        <div>
+            {% for restaurant in city.restaurants_set.all %}
+                <div {% if restaurant.id|divisibleby:"2" %} style="background: #E8EAF6" {% endif %}>
+                    <div class="restaurant">
+                        <div class="restaurant-info">
+                            <h4 id="{{ restaurant.name }}">{{ restaurant.name }}</h4>
+                            <img src="{{ restaurant.photo.url }}" width="220" height="220" alt=""><br>
+                            <span><b>Кухня: </b>{{ restaurant.kitchen }}</span><br>
+                            <span><b>Адрес: </b>{{ restaurant.place }}</span><br>
+                            <span><b>Сайт: </b><a href="{{ restaurant.link }}">{{ restaurant.link }}</a></span><br>
+                        </div>
+                        <div class="restaurant-description">
+                            {{ restaurant.description }}
+                        </div>
+                        {% if user.is_staff %}
+                            <a href="{{restaurant.id}}/del_rest" style="color: #1b1b1b">
+                                <button  class="mt-3 btn btn-success btn-block py-3"
+                                    style="background: #FF0000;" type="submit">
+                                    Удалить ресторан {{restaurant.name}}
+                                </button>
+                            </a>
+                        {% endif %}
+                    </div>
+                    <div class="container">
+                        {% for photo in restaurant.interiorphoto_set.all %}
+                            <img src="{{ photo.image.url }}" width="280" alt=""><br>
+                            {% if user.is_staff %}
+                                <a href="{{photo.id}}/del_photo_rest" style="color: #1b1b1b">
+                                    <button  class="mt-3 btn btn-success btn-block py-3"
+                                        style="background: #FF0000;" type="submit">
+                                        Удалить фото ресторана.
+                                    </button>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                        {% if user.is_staff %}
+                            <a href="{{restaurant.id}}/add_photo_rest" style="color: #1b1b1b">
+                                <button  class="mt-3 btn btn-success btn-block py-3"
+                                    style="background: #9FA8DA;" type="submit">
+                                    Добавить фото ресторана.
+                                </button>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+            {% if user.is_staff %}
+                <a href="{{city.get_absolute_url}}/add_rest" style="color: #1b1b1b">
+                    <button  class="mt-3 btn btn-success btn-block py-3"
+                                    style="background: #9FA8DA;" type="submit">Добавить ресторан</button>
+                </a>
+                <a href="city_delete{{city.get_absolute_url}}" style="color: #1b1b1b">
+                    <button  class="mt-3 btn btn-success btn-block py-3"
+                                        style="background: #FF0000;" type="submit">
+                                        Удалить город {{city.name}}
+                    </button>
+                </a>
+            {% endif %}
+        </div>
+        <hr>
+        <div class="comments2">
+            <div class="comments-block">
+                <!-- contact form grid -->
+                <div class="comment-form">
+                    <h3 class="editContent">
+                        Поделитесь своим впечатлением</h3>
+                    {% if user.is_authenticated %}
+                        <form action="{% url 'add-review' city.id %}" method="post" class="mt-4"
+                              id="formReview">
+                            {% csrf_token %}
+                            <input type="hidden" name="parent" id="contactparent" value="">
+                            <div class="form-group editContent">
+                                {{ form.text }}
+                            </div>
+                            <div class="d-sm-flex">
+                                {#                            {{ form.captcha }}#}
+                            </div>
+                            <button type="submit"
+                                    class="mt-3 btn btn-success btn-block py-3" style="background: #9FA8DA;">
+                                Отправить
+                            </button>
+                        </form>
+                    {% else %}
+                        <h6 class="card-header"><a href="{% url 'account_login' %}">Авторизуйтесь</a>
+                            или <a href="{% url 'account_signup' %}">зарегистрируйтесь</a> чтобы делиться впечатлениями
+                        </h6>
+                    {% endif %}
+                </div>
+                <!--  //contact form grid ends here -->
+                {% for review in city.get_review %}
+                    <div class="comments">
+                        <div class="media-list">
+                            <div class="comment-body">
+                                <img src="{{ review.name.profile.avatar.url }}"
+                                     style="border-radius: 100px;" width="40" height="40"
+                                     alt="{% static 'images/te2.jpg' %}">
+                                <div class="comment-text">
+                                    <div class="media-heading">
+                                        {% if review.name.first_name %}
+                                            <h5 class="author">
+                                                {{ review.name.first_name }}
+                                            </h5>
+                                        {% else %}
+                                            <h5 class="author">
+                                                {{ review.name }}
+                                            </h5>
+                                        {% endif %}
+                                    </div>
+                                    <p class="media-text text-justify">
+                                        {{ review.text }}
+                                    </p>
+                                    {% if user.is_authenticated %}
+                                        <div class="comment-reply">
+                                            {% if review.name.first_name %}
+                                                <a href="#formReview"
+                                                   onclick="addReview(
+                                                           '{{ review.name.first_name }}', '{{ review.id }}'
+                                                           )">Ответить</a>
+                                            {% else %}
+                                                <a href="#formReview"
+                                                   onclick="addReview(
+                                                           '{{ review.name }}', '{{ review.id }}'
+                                                           )">Ответить</a>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                    {% for rew in review.reviews_set.all %}
+                                        <div class="comment-body2">
+                                            <img src="{{ rew.name.profile.avatar.url }}"
+                                                 style="border-radius: 20px;" width="40" height="40"
+                                                 alt="{% static 'images/te2.jpg' %}">
+                                            <div class="comment-text">
+                                                {% if rew.name.first_name %}
+                                                    <h5 class="author">
+                                                        {{ review.name.first_name }}
+                                                    </h5>
+                                                {% else %}
+                                                    <h5 class="author">
+                                                        {{ review.name }}
+                                                    </h5>
+                                                {% endif %}
+                                                <p>{{ rew.text }}</p>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script>
+        function addReview(name, id) {
+            document.getElementById("contactparent").value = id;
+            document.getElementById("contactcomment").innerText = `${name}, `
+        }
+    </script>
+{% endblock %}

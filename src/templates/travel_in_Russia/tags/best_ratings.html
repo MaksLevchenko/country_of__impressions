@@ -1,0 +1,15 @@
+<div class="container-best">
+    <h3 class="head">Города с лучшим рейтингом:</h3>
+    <div class="best">
+        {% for city in cities_with_best_rating %}
+            <div class="best-city">
+                <a href="{{ city.get_absolute_url }}" class="link editContent">
+                    <img src="{{ city.city_emblem.url }}" class="img-best-city" alt="">
+                    <h5 class="editContent">{{ city.name }}</h5>
+                </a>
+                <span class="rating"> <b>Рейтинг: </b>
+                    {{ city.middle_star }}</span>
+            </div>
+        {% endfor %}
+    </div>
+</div><br>

@@ -1,0 +1,413 @@
+.prokrutka {
+    width: 300px;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.mt-0 {
+    margin-top: 0 !important
+}
+
+.mt-2 {
+    margin-top: 0.5rem !important;
+}
+
+.mt-5 {
+    margin-left: 75px !important;
+}
+
+.py-5 {
+    padding-top: 3rem !important;
+}
+
+/* Checkbox stars */
+.rating {
+    overflow: hidden;
+    vertical-align: bottom;
+    display: inline-block;
+    width: 155px;
+    height: 30px;
+}
+
+.rating > input {
+    opacity: 0;
+    margin-right: -100%;
+}
+
+.rating > label {
+    position: relative;
+    display: block;
+    float: right;
+    background: url('../images/star2.png');
+    background-size: 30px 30px;
+}
+
+.rating > label:before {
+    display: block;
+    opacity: 0;
+    content: '';
+    width: 30px;
+    height: 30px;
+    background: url('../images/star.png');
+    background-size: 30px 30px;
+    transition: opacity 0.2s linear;
+}
+
+.rating > label:hover:before, .rating > label:hover ~ label:before, .rating:not(:hover) > :checked ~ label:before {
+    opacity: 1;
+}
+
+/* Pagination */
+.pagination {
+    width: auto;
+    margin: 0 auto
+}
+
+.pagination,
+.pagination__link {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center
+}
+
+.pagination__link {
+    position: relative;
+    left: -1px;
+    top: 1px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transition: all .2s ease-in-out;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    color: #6163b9
+}
+
+@media only screen and (max-width: 767px) {
+    .pagination__link {
+        font-size: 15px
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    .pagination a.pagination__link:hover {
+        background: rgba(102, 88, 175, .15)
+    }
+}
+
+.pagination__item {
+    transition: all .2s ease-in-out;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    z-index: 1;
+    position: relative;
+    margin: 0 2px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center
+}
+
+@media only screen and (max-width: 767px) {
+    .pagination__item {
+        margin: 0 2px;
+        width: 33px;
+        height: 33px
+    }
+}
+
+.pagination__item:first-child {
+    margin-left: 0
+}
+
+.pagination__item:last-child {
+    margin-right: 0
+}
+
+@media only screen and (max-width: 1023px) {
+    .pagination__item:nth-child(3),
+    .pagination__item:nth-child(9) {
+        display: none
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    .pagination__item.active:hover,
+    .pagination__link {
+        color: #fff;
+        background: #6658af
+    }
+}
+
+.pagination__item.active .pagination__link {
+    color: #fff;
+    background: #6658af
+}
+
+.pagination__item--dots .pagination__link {
+    color: #bfc0f1
+}
+
+/* Pagination */
+
+/* Comments */
+
+.media-body .author {
+  display: inline-block;
+  font-size: 1rem;
+  color: #000;
+  font-weight: 700;
+}
+
+.media-body .metadata {
+  display: inline-block;
+  margin-left: .5rem;
+  color: #777;
+  font-size: .8125rem;
+}
+
+.footer-comment {
+  color: #777;
+}
+
+.comment-reply a {
+  color: #777;
+}
+
+.comment-reply a:hover, .comment-reply a:focus {
+  color: #000;
+  text-decoration: none;
+}
+
+.media-text {
+  margin-bottom: 0.25rem;
+}
+
+/* Comments */
+
+/* Header */
+
+.navbar2 {
+    background: url("../images/fon2.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 500px;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ser {
+    margin: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.devise {
+    background: #E8EAF6;
+    margin: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+.cities-block {
+    display: flex;
+    padding-left: 260px;
+    padding-right: 260px;
+    padding-bottom: 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    gap: 30px;
+}
+
+.city {
+    background: #E8EAF6;
+    display: flex;
+    width: 180px;
+    height: 280px;
+    padding: 5px;
+    flex-direction: column;
+    border-style: solid;
+    border-width: 0.2px;
+}
+
+.city-name {
+    text-align: center;
+}
+
+.img {
+    width: 100%; height: 85%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    object-position: center;
+}
+
+.img img {
+    margin-top: 5px;
+    margin-bottom: 2px;
+}
+
+.link {
+    text-decoration: none;
+    color: #0E2231;
+}
+
+.link2 {
+    color: #ab9bab;
+}
+
+.link3 {
+    color: #616161;
+}
+
+.head {
+    display: flex;
+    justify-content: center;
+}
+
+.container-best {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.best {
+    background: #E8EAF6;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: auto;
+    width: 950px;
+}
+
+.best-city {
+    width: 180px;
+}
+
+.img-best-city {
+    width: 170px;
+    height: 230px;
+}
+
+/* City-detail */
+
+.city-detail {
+    padding: 20px;
+    width: 100%;
+}
+
+.container {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 20px;
+    width: 100%;
+}
+
+.name {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.description {
+    text-align: center;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.address {
+    padding: 15px;
+}
+
+.restaurant {
+    padding: 15px;
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.restaurant-info {
+    width: 25%;
+}
+
+.restaurant-description {
+    width: 75%;
+    padding: 40px;
+    text-align: right;
+}
+
+/*.foto {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    padding: 25px;*/
+/*}*/
+
+.comments2 {
+    display: flex;
+    justify-content: center;
+}
+
+.comments-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5%;
+    width: 75%;
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.comment-body {
+    display: flex;
+    justify-content: start;
+    word-break: break-all;
+    margin: 15px;
+}
+
+.comment-body2 {
+    display: flex;
+    justify-content: start;
+    word-break: break-all;
+    margin-top: 15px;
+}
+
+.comment-text {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.my-profile {
+    margin: 50px;
+}
+
+.prof-info {
+    display: flex;
+    justify-content: end;
+    align-items: start;
+    gap: 20px;
+    width: 35%;
+}

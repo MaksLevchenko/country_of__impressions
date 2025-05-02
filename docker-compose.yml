@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  travel:
+    build: .
+    command: bash -c "python manage.py collectstatic --noinput && gunicorn -w 4 --bind :8000 My_travel_project.wsgi"
+    volumes:
+      - .:/usr/src
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - ./src/.env.docker
+    environment:
+      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}
+  
+  bot:
+    build: .
+    command: python bot/bot.py
+    volumes:
+      - .:/usr/src
+    depends_on:
+      - db
+    env_file:
+      - ./src/.env.docker
+    environment:
+      - BOT_TOKEN=${TG_BOT_TOKEN}
+
+  db:
+    image: postgres:14
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    env_file:
+      - ./src/.env.docker
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+volumes:
+  db_data:

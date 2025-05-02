@@ -1,1 +1,11 @@
-.env
+.idea
+
+__pycache__/
+.pytest_cache
+volumes/
+venv/
+*.env
+*.env.docker
+*.env.local
+.venv
+.handler-saves

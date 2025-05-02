@@ -1,0 +1,35 @@
+from django.urls import path
+
+from travel_in_Russia import views
+
+urlpatterns = [
+    path('', views.CityListView.as_view()),
+    path("filter/", views.FilterCityView.as_view(), name="filter"),
+    path("search/", views.Search.as_view(), name="search"),
+    path('add-rating/', views.AddStarRating.as_view(), name='add-rating'),
+    path('<slug:slug>', views.CityDetailView.as_view(), name='city_detail'),
+    path("review/<int:pk>/", views.AddReview.as_view(), name="add-review"),
+    path("profile/<int:pk>/", views.ProfileView.as_view(), name="profile"),
+    path("profile/redact/<int:pk>/", views.RedactProfile.as_view(), name="redact"),
+    path("profile/update/", views.UpdateProfile.as_view(), name="update"),
+    path("add_city/", views.AddCity.as_view(), name="add_city"),
+    path("new_city/", views.NewCity.as_view(), name="save_city"),
+    path("city_delete/<slug:slug>/", views.DeleteCity.as_view(), name="city_delete"),
+    path("city_delete/<slug:slug>/confirm/", views.ConfirmDeleteCity.as_view(), name="confirm_city_delete"),
+    path("<slug:slug>/add_rest/", views.AddRest.as_view(), name="add_rest"),
+    path("<slug:slug>/new_rest/", views.NewRest.as_view(), name="save_rest"),
+    path("<int:pk>/del_rest/", views.DeleteRest.as_view(), name="del_rest"),
+    path("<int:pk>/del_rest/confirm_del_rest/", views.ConfirmDelRest.as_view(), name="confirm_rest_del"),
+    path("<slug:slug>/add_sight/", views.AddSight.as_view(), name="add_sight"),
+    path("<slug:slug>/new_sight/", views.NewSight.as_view(), name="save_sight"),
+    path("<int:pk>/del_sight/", views.DeleteSight.as_view(), name="del_sight"),
+    path("<int:pk>/del_sight/confirm_del_sight/", views.ConfirmDelSight.as_view(), name="confirm_sight_del"),
+    path("<int:pk>/add_photo_sight/", views.AddPhotoSight.as_view(), name="add_photo_sight"),
+    path("<int:pk>/add_photo_sight/new_photo_sight/", views.NewPhotoSight.as_view(), name="confirm_sight_del"),
+    path("<int:pk>/del_photo_sight/", views.DelPhotoSight.as_view(), name="del_photo_sight"),
+    path("<int:pk>/del_photo_sight/confirm_del_photo_sight/", views.ConfirmDelPhotoSight.as_view(), name="confirm_del_photo_sight"),
+    path("<int:pk>/add_photo_rest/", views.AddPhotoRest.as_view(), name="add_photo_rest"),
+    path("<int:pk>/add_photo_rest/new_photo_rest/", views.NewPhotoRest.as_view(), name="confirm_rest_photo_del"),
+    path("<int:pk>/del_photo_rest/", views.DelPhotoRest.as_view(), name="del_photo_rest"),
+    path("<int:pk>/del_photo_rest/confirm_del_photo_rest/", views.ConfirmDelPhotoRest.as_view(), name="confirm_del_photo_rest"),
+]
