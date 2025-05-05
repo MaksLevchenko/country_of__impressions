@@ -28,7 +28,7 @@
 Скопируйте проект себе на компьютер:
 
     git clone https://github.com/MaksLevchenko/country_of__impressions.git
-    cd My_travel_project
+    cd country_of__impressions
 
 2. Настройка переменных окружения
 
